@@ -10,12 +10,14 @@ from keras.models import load_model
 from dataset import *
 from util import *
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('dataset', choices=['oxiod', 'euroc'], help='Training dataset name (\'oxiod\' or \'euroc\')')
     parser.add_argument('model', help='Model path')
     parser.add_argument('input', help='Input sequence path (e.g. \"Oxford Inertial Odometry Dataset/handheld/data4/syn/imu1.csv\" for OxIOD, \"MH_02_easy/mav0/imu0/data.csv\" for EuRoC)')
-    parser.add_argument('gt', help='Ground truth path (e.g. \"Oxford Inertial Odometry Dataset/handheld/data4/syn/vi1.csv\" for OxIOD, \"MH_02_easy/mav0/state_groundtruth_estimate0/data.csv\" for EuRoC)')
+    parser.add_argument('gt',
+                        help='Ground truth path (e.g. \"Oxford Inertial Odometry Dataset/handheld/data4/syn/vi1.csv\" for OxIOD, \"MH_02_easy/mav0/state_groundtruth_estimate0/data.csv\" for EuRoC)')
     args = parser.parse_args()
 
     window_size = 200
@@ -64,6 +66,7 @@ def main():
     ax.set_zlim(min_z, min_z + max_range)
     ax.legend(['ground truth', 'predicted'], loc='upper right')
     plt.show()
+
 
 if __name__ == '__main__':
     main()

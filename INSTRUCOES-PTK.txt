@@ -1,0 +1,5 @@
+# Rodar o teste
+python3 test.py euroc 6dofio_euroc.hdf5 MH_01_easy/mav0/imu0/data.csv MH_01_easy/mav0/state_groundtruth_estimate0/data.csv
+
+# Rodar o treino
+python3 train.py euroc 6dofio_euroc
