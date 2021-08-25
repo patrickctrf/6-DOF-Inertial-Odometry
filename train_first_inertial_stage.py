@@ -23,11 +23,11 @@ Runs the experiment itself.
     room2_tum_dataset = AsymetricalTimeseriesDataset(x_csv_path="dataset-room2_512_16/mav0/imu0/data.csv", y_csv_path="dataset-room2_512_16/mav0/mocap0/data.csv",
                                                      min_window_size=30, max_window_size=31, shuffle=False, device=device, convert_first=True)
 
-    euroc_v2_dataset = AsymetricalTimeseriesDataset(x_csv_path="V1_01_easy/mav0/imu0/data.csv", y_csv_path="V1_01_easy/mav0/vicon0/data.csv",
+    euroc_v2_dataset = AsymetricalTimeseriesDataset(x_csv_path="V2_02_medium/mav0/imu0/data.csv", y_csv_path="V1_01_easy/mav0/vicon0/data.csv",
                                                     min_window_size=100, max_window_size=101, shuffle=False, device=device, convert_first=True)
 
     dados_de_entrada_imu = read_csv("V1_01_easy/mav0/imu0/data.csv").to_numpy()[:, 1:]
-    dados_de_saida = read_csv("V1_01_easy/mav0/vicon0/data.csv").to_numpy()[:, 1:]
+    dados_de_saida = read_csv("V1_01_easy/mav0/state_groundtruth_estimate0/data.csv").to_numpy()[:, 1:]
 
     predict = []
     for i in tqdm(range(0, dados_de_entrada_imu.shape[0] - 200, 10)):
@@ -41,6 +41,7 @@ Runs the experiment itself.
         )
 
     predict = array(predict)
+    predict = np.cumsum(predict, axis=0)
 
     dimensoes = ["px", "py", "pz", "qw", "qx", "qy", "qz"]
     for i, dim_name in enumerate(dimensoes):
